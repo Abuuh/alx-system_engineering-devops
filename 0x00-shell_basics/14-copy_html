@@ -1,2 +1,3 @@
 #!/bin/bash
-rsync -u --ignore-existing --exclude='*.html' --include='*/' --include='*.html' --exclude='*' ./ ../
+parent_dir="$(dirname "$(pwd)")"
+cp -ru --update --suffix=.bak --exclude='*.bak' ./*.html "$parent_dir"
