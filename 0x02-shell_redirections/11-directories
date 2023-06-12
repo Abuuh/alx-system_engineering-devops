@@ -1,2 +1,22 @@
 #!/bin/bash
-find . -type d ! -path . -print | wc -1
+count_directories() {
+    local dir="$1"
+    local count=0
+
+    # Iterate over each item in the directory
+    for item in "$dir"/* "$dir"/.*; do
+        # Check if the item is a directory (excluding current and parent directories)
+        if [ -d "$item" ] && [ "$item" != "$dir" ] && [ "$item" != "$dir/." ] && [ "$item" != "$dir/.." ]; then
+            count=$((count + 1))
+            # Recursively count directories in sub-directories
+            count=$((count + $(count_directories "$item")))
+        fi
+    done
+
+    echo "$count"
+}
+
+# Call the function on the current directory
+count=$(count_directories ".")
+
+echo "$count"
