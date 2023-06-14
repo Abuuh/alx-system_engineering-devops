@@ -1,2 +1,2 @@
 #!/bin/bash
--F ':' '{print "User: "$1"\nHome Directory: "$6"\n"}' /etc/passwd | sort
+cut -d ':' -f 1,6 /etc/passwd | sort -t ':' -k 1
